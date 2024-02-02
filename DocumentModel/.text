@@ -1,0 +1,195 @@
+Documentation of Sorting and feedback 
+Team leader: M.suresh 
+Team members: N.gopi bhavani 
+ Naheda mohammad
+ Nikhil devarasetty 
+Requirements to develop project:
+➢ Python 
+➢ Django
+➢ Django rest framework 
+➢ Postman tool 
+➢ Postgres SQL database 
+Sorting: 
+Sorting is a process in which items are arranged in systematically or ordering 
+given collection of elements in some particular order. It has two common meanings 
+➢ ordering: Arranging items in a sequence 
+➢ categorizing: Grouping items with similar properties and similar actions 
+why sorting is important:
+In everyday life, sorting helps us stay organized and find things more 
+easily. Weather it is sorting files on a computer, organizing books in a shelf, or 
+arranging items in a specific order, sorting helps to bring structure and clarity to our 
+surroundings.
+Development of sorting:
+In computer programming language we should build the sorting the products by using 
+python and Django and Django rest frame work.
+We are looking code development by following steps.
+Commands for creating a project
+➢ Pip install pip (pip : preferred installer program)
+➢ Python -m virtualenv venv
+➢ .\venv\Scripts\activate
+➢ Pip install django
+➢ django-admin startproject yourprojectname
+➢ cd yourprojectname
+➢ python manage.py startapp yourappname
+➢ python manage.py runserver
+Step 1: 
+After creating a project open settings and install app name in and django 
+restframework in installed apps.
+In terminal install Django rest frame work by using command of pip install 
+djangorestframework and installed it on installed_apps in settings.py
+Step2: 
+Create a folder called urls.py in app and include this app url.py in project url.py 
+merge this urls.py
+Connect above sortApp urls.py to sortProject urls.py by using inbuild method called 
+include 
+Step 3 : -
+models.py:
+models.py is one of the most import concept of django and in rest_framework 
+it allows us to completely define the database of our web applications and allowing us 
+to declare the tables and fields of our database. Models define the structure of stored 
+data including the field types and also their maximum size, default values, selection of 
+list options and help text for documentation, label text for forms.
+In project we create a table for storing and saving data in database.
+Creating a table with required columns and their default sizes and values.
+After creating the table in models.py file we must should run the 2 commands 
+1. python manage.py makemigrations 
+2. pythom manage.py migrate
+all the columns can be migrated to admin panel 
+Step 4: 
+Admin.py: 
+This file is used to display your models in Django admin panel and also we can 
+customize admin panel 
+In admin.py file the model should be imported from model 
+From django.contrib import admin 
+From django .models import *
+Here we can register our model tables for display table in admin panel 
+Admin.site.register(model name)
+Like above model we can register 
+We can create a admin panel :
+Commands are : 
+1. python manage.py createsuperuser
+2. give the username 
+3. email 
+4. password 
+5. confirm password 
+6. the run the server by using python manage.py runserver
+Note: the password should not be visisble while we typing 
+Copy the link of http://127.0.0.1:8000/ and paste it on chrome and type 
+http://127.0.0.1:8000/admin/login
+Opened like this and give the login credentials and open the admin panel 
+After open admin panel looks like this and check the details
+Until here we should save the data and register the tables into database 
+Now we are looking forward into backend development 
+Here my project main agenda is create 
+sorting the products and feedback page
+For developing backend program, we need serializers.py files and views.py files 
+Serializers: 
+serializers are used to convert complex data types such as django model 
+instances, into python data types and that can easily be rendered into JSON, XML or 
+other content types. 
+Serializers also provide deserialization, allowing parsed data to be converted 
+back into complex types after first validating the incoming dataLets create a folder for 
+serializers in sortApp 
+Creating a serializers.py file in sortApp 
+Open the serializers file and import serializers from django_restframework 
+And also import models 
+From rest_framework import serializers 
+From django . models import *
+Write the class methods how many we saved tables in database by using models.py 
+file
+As we already creating a two tables in database by using models.py one is for sorting 
+the products and another one for saving feedback from users
+In sorting the products we should give the column names as 
+Producr_name
+Category
+Price
+By maintaining column size and their charcters and default values 
+In feedback table we gave the column names is 
+Here we should discuss about the charcter fields:
+Charfield : it means only allow alphabets 
+Emailfileld : only allow email like we get only @gmail.com
+Foreignkey : its allow the connection between two tables 
+As we already given the table of product and the same attribute should 
+be placed and this should be interconnected with table one.
+On delete cascade is given in feedback table, this cascade should be helped to delete 
+the product in table one and also automatically delete the product in table 2 
+Textfield : we can write the more letters with no max and min size
+Booleanfiled: its allow only true or false boxes 
+Datefield : only it allow date field and show the calender 
+Views.py file: 
+This file is helped to develop and define the web applications 
+In this file we should import lots of inbuild files 
+Lets getting into this file by using code developed picture
+In the above code we should explain how the code should be works step by step 
+First we have to import the files what we have required 
+We need models , sterilizers , filters and as well as rest_framework and generics 
+Create a class for product details what we have to sort 
+Create class name called productDetails and inside the brackets we use generics and 
+ListCreateApiView
+➢ class productDetails(generics,ListCreateApiView) like this we create a class 
+generics means for sending a multiple serialized models and querysets 
+via a single API request.
+ListCreateApiView used to read and write collection of endpoints and 
+it accepts the GET and POST requests.
+➢ Queryset=product.objects.all() 
+Queryset is a collection of data from the database and buildup as a list of 
+objects, querysets is easier to get the data you actually need, by allowing 
+you to flter and order the data at early stage.
+➢ Serializer_class=productserializer:
+Serializer is helped to convert complex data into normal python datatypes 
+Productserializer is a serializer class that inherits from 
+serializers.Modelserializer and it is designed to work with a a product
+model
+Before going to filter the products we need to install filters in django by following the 
+command called : pip install Django-filter
+After this import the filters in views.py file by using rest_framework 
+From rest_framework.filters import searchFilter,orderingFilters
+➢ Filter_backends (searchfilter,orderingfilter):
+searchFilter: This filter backend is used for performinmg search 
+operations on the data it allows clients to filter the queryset based on a 
+searcgh query parameter 
+orderingFilter: This filter backend used for ordering (sorting) the queryset 
+based on one or more fields. Clients can specify the ordering using query 
+parameters 
+➢ Search_fields=("product_name”,”category”):
+This field is typicaly used to define which felds in your model should be 
+searchable using the searchfilter backend 
+➢ Ordering_fields=(“price”,”id”):
+The ordering fields can be used fro ordering (sorting) the queryset in a 
+view or api endpoint.it allows clients to specify the order in which the 
+results should be returned 
+The complete code should be seen in below picture 
+Feed back view:
+in feed back view we should create a class called 
+ class feedbackDetails(generics.ListCreateApiView)
+as we alredy explain about generics and listcreateapiview on above pages 
+after we use same queryset and serializers for giving feed back and saving in database 
+in models .py we alredy create a table with names of 
+figure 1 . models.py feedback table
+and saved this table in database 
+the entire project should be test in postman tool by using get,post,put,delete 
+methods.
+The final out is here : 
+customer name
+email
+product
+user
+comment
+rating
+date
+Add the products by according to their properties
+After adding two or more products then shown like below picture
+After adding all the products we should have filter or sort the products by ordering or 
+search filter.
+By using search filter we should search the products 
+After searching products all the products with same name displayed like this
+By ordering the products by using ascending and descending order alredy shown in 
+filters and the they should displayed by id number and price like this 
+Feedback output:
+The user can write the feedback in a admin page and that should be read by the 
+product sellers 
+The user can write the feedback like this :
+We should fill our details as well as our feedback 
+The admin can see our feedback and details like this 
+This is feed back page read by and send request mails to customers 
+Thank you
